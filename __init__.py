@@ -1,5 +1,6 @@
 import os
 import json
+from warnings import warn
 
 #     The location of this file can be specified by the NIOC_CONFIG_FILE
 #     environment variable (which the user needs to set himself/herself.
@@ -10,9 +11,12 @@ config_file = os.getenv('NIOC_CONFIG_FILE', DFLT_CONFIG_FILE)
 try:
     config_dict = json.load(open(config_file))
 except FileNotFoundError:
-    from warnings import warn
-
     warn("The config file wasn't found: {}".format(config_file))
+    warn("--> Make one or some functionalities might not be available or work properly.")
+    config_dict = {}  #
+except json.JSONDecodeError as e:
+    warn("The config json had some problems being decoded: {}".format(config_file))
+    warn("Error said: {}".format((e)))
     warn("--> Make one or some functionalities might not be available or work properly.")
     config_dict = {}  #
 
