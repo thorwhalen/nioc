@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import requests
 
-from ut.util.time import utc_ms_to_utc_datetime
+from ut.util.utime import utc_ms_to_utc_datetime
 
 root_url = 'http://api.bitcoincharts.com/v1/csv/'
 
