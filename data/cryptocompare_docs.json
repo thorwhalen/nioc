@@ -1,0 +1,3394 @@
+{
+    "Price": {
+        "ShowOnFrontEnd": true,
+        "Icon": "usd",
+        "Expanded": true,
+        "Name": "Price",
+        "SubCatgeories": {
+            "SingleSymbolPriceEndpoint": {
+                "Name": "Single Symbol Price",
+                "Simple": "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR",
+                "Info": {
+                    "Description": "<p>Get the current price of any cryptocurrency in any other currency that you need.</p><p>If the crypto does not trade directly into the toSymbol requested, BTC will be used for conversion. If the opposite pair trades we invert it (eg.: BTC-XMR)</p>",
+                    "Parameters": [
+                        {
+                            "name": "tryConversion",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "If set to false, it will try to get only direct trading values"
+                        },
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfo"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "tsyms",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 500,
+                            "transform": "Uppercase",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "KeysInTradePairsOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsym",
+                            "description": "Comma separated cryptocurrency symbols list to convert into"
+                        },
+                        {
+                            "name": "relaxedValidation",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "Setting this to true will make sure you don't get an error on non trading pairs, they will just be filtered out of the response."
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "CCCAGG",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketInPairsMarketList"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR",
+                        "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=XMR,ETH,ZEC&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=XMR,REP,ZEC&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR&e=Coinbase&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "10 seconds"
+                }
+            },
+            "multipleSymbolsPriceEndpoint": {
+                "Name": "Multiple Symbols Price",
+                "Simple": "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR",
+                "Info": {
+                    "Description": "<p>Same as single API path but with multiple from symbols.</p>",
+                    "Parameters": [
+                        {
+                            "name": "tryConversion",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "If set to false, it will try to get only direct trading values"
+                        },
+                        {
+                            "name": "fsyms",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 300,
+                            "transform": "Uppercase",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "KeysInGlobalInfo"
+                            ],
+                            "description": "Comma separated cryptocurrency symbols list"
+                        },
+                        {
+                            "name": "tsyms",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 100,
+                            "transform": "Uppercase",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "KeysInAtLeastOneTradePairOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsyms",
+                            "description": "Comma separated cryptocurrency symbols list to convert into"
+                        },
+                        {
+                            "name": "relaxedValidation",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "Setting this to true will make sure you don't get an error on non trading pairs, they will just be filtered out of the response."
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "CCCAGG",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketInPairsMarketList"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,DASH&tsyms=BTC,USD,EUR",
+                        "https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,DASH&tsyms=BTC,USD,EUR&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/pricemulti?fsyms=REP,BTC&tsyms=USD,XMR&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD&e=Coinbase&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "10 seconds"
+                }
+            },
+            "multipleSymbolsFullPriceEndpoint": {
+                "Name": "Multiple Symbols Full Data",
+                "Simple": "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD,EUR",
+                "Info": {
+                    "Description": "<p>Get all the current trading info (price, vol, open, high, low etc) of any list of cryptocurrencies in any other currency that you need. If the crypto does not trade directly into the toSymbol requested, BTC will be used for conversion. </p><p>This API also returns Display values for all the fields. If the opposite pair trades we invert it (eg.: BTC-XMR)</p>",
+                    "Parameters": [
+                        {
+                            "name": "tryConversion",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "If set to false, it will try to get only direct trading values"
+                        },
+                        {
+                            "name": "fsyms",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 1000,
+                            "transform": "Uppercase",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "KeysInGlobalInfo"
+                            ],
+                            "description": "Comma separated cryptocurrency symbols list"
+                        },
+                        {
+                            "name": "tsyms",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 100,
+                            "transform": "Uppercase",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "KeysInAtLeastOneTradePairOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsyms",
+                            "description": "Comma separated cryptocurrency symbols list to convert into"
+                        },
+                        {
+                            "name": "relaxedValidation",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "Setting this to true will make sure you don't get an error on non trading pairs, they will just be filtered out of the response."
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "CCCAGG",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketInPairsMarketList"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH,DASH&tsyms=BTC,USD,EUR",
+                        "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH,DASH&tsyms=BTC,USD,EUR&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=REP,BTC&tsyms=USD,XMR&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH&tsyms=USD&e=Coinbase&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "10 seconds"
+                }
+            },
+            "generateAverageEndpoint": {
+                "Name": "Generate Custom Average",
+                "Simple": "https://min-api.cryptocompare.com/data/generateAvg?fsym=BTC&tsym=USD&e=Kraken",
+                "Info": {
+                    "Description": "<p>Compute the current trading info (price, vol, open, high, low etc) of the requested pair as a volume weighted average based on the exchanges requested.</p>",
+                    "Parameters": [
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfo"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInTradePairsOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsym",
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 2,
+                            "maxLen": 150,
+                            "extraValidation": [
+                                "MarketsInPairMarketList"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/generateAvg?fsym=BTC&tsym=USD&e=Coinbase,Bitfinex",
+                        "https://min-api.cryptocompare.com/data/generateAvg?fsym=ETH&tsym=BTC&e=Poloniex,Kraken,Coinbase,HitBTC&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/generateAvg?fsym=ZEC&tsym=USD&e=Poloniex,Bitfinex&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "10 seconds"
+                }
+            }
+        }
+    },
+    "Historical": {
+        "ShowOnFrontEnd": true,
+        "Icon": "calendar",
+        "Expanded": true,
+        "Name": "Historical Data",
+        "SubCatgeories": {
+            "dataHistoday": {
+                "Name": "Historical Daily OHLCV",
+                "Simple": "https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=10",
+                "Info": {
+                    "Description": "<p>Get open, high, low, close, volumefrom and volumeto from the daily historical data.The values are based on 00:00 GMT time. It uses BTC conversion if data is not available because the coin is not trading in the specified currency. If you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}.</p>",
+                    "Parameters": [
+                        {
+                            "name": "tryConversion",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "If set to false, it will try to get only direct trading values"
+                        },
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfo"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInTradePairsOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsym",
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "CCCAGG",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketInPairMarketList"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "aggregate",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 1,
+                            "minValue": 1,
+                            "maxValue": 30,
+                            "description": "Time period to aggregate the data over (for daily it's days, for hourly it's hours and for minute histo it's minutes)"
+                        },
+                        {
+                            "name": "aggregatePredictableTimePeriods",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "True by default, only used when the aggregate param is also in use. If false it will aggregate based on the current time.If the param is false and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 9am, 11am, 1pm.If the param is false and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm.If the param is true (default) and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 8am, 10am, 12pm.If the param is true (default) and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm."
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 30,
+                            "minValue": 1,
+                            "maxValue": 2000,
+                            "description": "The number of data points to return"
+                        },
+                        {
+                            "name": "allData",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "Returns all data (only available on histo day)"
+                        },
+                        {
+                            "name": "toTs",
+                            "type": "timestamp",
+                            "required": false,
+                            "defaultToHitTime": true,
+                            "nowOrLess": true,
+                            "extraValidation": [
+                                "toTimestampValidation"
+                            ],
+                            "secondsInUnit": 86400,
+                            "cacheLength": 610,
+                            "maxUnits": 2000,
+                            "unit": "day",
+                            "description": "Returns historical data before that timestamp. If you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=30&aggregate=3&e=CCCAGG",
+                        "https://min-api.cryptocompare.com/data/histoday?fsym=ETH&tsym=USD&limit=30&aggregate=3&e=Kraken&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/histoday?fsym=ETH&tsym=BTC&limit=30&aggregate=1&toTs=1452680400&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=ETH&limit=30&aggregate=1&e=CCCAGG",
+                        "https://min-api.cryptocompare.com/data/histoday?fsym=XRP&tsym=GBP&limit=30&aggregate=1&e=CCCAGG",
+                        "https://min-api.cryptocompare.com/data/histoday?fsym=GBP&tsym=ETH&limit=30&aggregate=1&e=CCCAGG",
+                        "https://min-api.cryptocompare.com/data/histoday?fsym=XRP&tsym=REP&limit=30&aggregate=1&e=CCCAGG",
+                        "https://min-api.cryptocompare.com/data/histoday?fsym=USD&tsym=ICN&limit=30&aggregate=1&e=CCCAGG",
+                        "https://min-api.cryptocompare.com/data/histoday?fsym=GBP&tsym=USD&limit=30&aggregate=1&e=CCCAGG"
+                    ],
+                    "CacheDuration": "610 seconds"
+                }
+            },
+            "dataHistohour": {
+                "Name": "Historical Hourly OHLCV",
+                "Simple": "https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=USD&limit=10",
+                "Info": {
+                    "Description": "<p>Get open, high, low, close, volumefrom and volumeto from the hourly historical data. It uses BTC conversion if data is not available because the coin is not trading in the specified currency. If you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}.</p>",
+                    "Parameters": [
+                        {
+                            "name": "tryConversion",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "info": "If set to false, it will try to get values without using any conversion at all",
+                            "description": "If set to false, it will try to get only direct trading values"
+                        },
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfo"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInTradePairsOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsym",
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "CCCAGG",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketInPairMarketList"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "aggregate",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 1,
+                            "minValue": 1,
+                            "maxValue": 30,
+                            "description": "Time period to aggregate the data over (for daily it's days, for hourly it's hours and for minute histo it's minutes)"
+                        },
+                        {
+                            "name": "aggregatePredictableTimePeriods",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "True by default, only used when the aggregate param is also in use. If false it will aggregate based on the current time.If the param is false and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 9am, 11am, 1pm.If the param is false and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm.If the param is true (default) and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 8am, 10am, 12pm.If the param is true (default) and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm."
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 168,
+                            "minValue": 1,
+                            "maxValue": 2000,
+                            "description": "The number of data points to return"
+                        },
+                        {
+                            "name": "toTs",
+                            "type": "timestamp",
+                            "defaultToHitTime": true,
+                            "nowOrLess": true,
+                            "required": false,
+                            "extraValidation": [
+                                "toTimestampValidation"
+                            ],
+                            "secondsInUnit": 3600,
+                            "cacheLength": 610,
+                            "maxUnits": 2000,
+                            "unit": "hour",
+                            "description": "Returns historical data before that timestamp. If you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/histohour?fsym=XMR&tsym=USD&limit=24&aggregate=3&e=CCCAGG",
+                        "https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=USD&limit=24&aggregate=3&e=Kraken&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=BTC&limit=24&aggregate=1&toTs=1452680400&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=ETH&limit=30&aggregate=1&e=CCCAGG"
+                    ],
+                    "CacheDuration": "610 seconds"
+                }
+            },
+            "dataHistominute": {
+                "Name": "Historical Minute OHLCV",
+                "Simple": "https://min-api.cryptocompare.com/data/histominute?fsym=BTC&tsym=GBP&limit=10",
+                "Info": {
+                    "Description": "<p>Get open, high, low, close, volumefrom and volumeto from the each minute historical data. This data is only stored for 7 days, if you need more, use the hourly or daily path.<p><p>It uses BTC conversion if data is not available because the coin is not trading in the specified currency.If you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}.</p>",
+                    "Parameters": [
+                        {
+                            "name": "tryConversion",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "info": "If set to false, it will try to get values without using any conversion at all",
+                            "description": "If set to false, it will try to get only direct trading values"
+                        },
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfo"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInTradePairsOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsym",
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "CCCAGG",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketInPairMarketList"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "aggregate",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 1,
+                            "minValue": 1,
+                            "maxValue": 30,
+                            "description": "Time period to aggregate the data over (for daily it's days, for hourly it's hours and for minute histo it's minutes)"
+                        },
+                        {
+                            "name": "aggregatePredictableTimePeriods",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "True by default, only used when the aggregate param is also in use. If false it will aggregate based on the current time.If the param is false and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 9am, 11am, 1pm.If the param is false and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm.If the param is true (default) and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 8am, 10am, 12pm.If the param is true (default) and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm."
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 1440,
+                            "minValue": 1,
+                            "maxValue": 2000,
+                            "info": "We only store minute data for 7 days, any info before that will be wrong.",
+                            "description": "The number of data points to return"
+                        },
+                        {
+                            "name": "toTs",
+                            "type": "timestamp",
+                            "defaultToHitTime": true,
+                            "nowOrLess": true,
+                            "required": false,
+                            "extraValidation": [
+                                "toTimestampValidationMinute",
+                                "ValidateAndCapToHitTimestamp"
+                            ],
+                            "secondsInUnit": 60,
+                            "cacheLength": 40,
+                            "maxUnits": 2000,
+                            "unit": "minute",
+                            "description": "Returns historical data before that timestamp. If you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/histominute?fsym=ZEC&tsym=USD&limit=60&aggregate=3&e=CCCAGG",
+                        "https://min-api.cryptocompare.com/data/histominute?fsym=ETH&tsym=USD&limit=60&aggregate=3&e=Kraken&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/histominute?fsym=ETH&tsym=BTC&limit=60&aggregate=1&toTs=1564420798&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/histominute?fsym=BTC&tsym=ETH&limit=30&aggregate=1&e=CCCAGG"
+                    ],
+                    "CacheDuration": "40 seconds"
+                }
+            },
+            "dataPriceHistorical": {
+                "Name": "Historical Day OHLCV for a timestamp",
+                "Simple": "https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=1452680400",
+                "Info": {
+                    "Description": "<p>Get the price of any cryptocurrency in any other currency that you need at a given timestamp. The price comes from the daily info - so it would be the price at the end of the day GMT based on the requested TS.</p><p>If the crypto does not trade directly into the toSymbol requested, BTC will be used for conversion. Tries to get direct trading pair data, if there is none or it is more than 10 days before the ts requested, it uses BTC conversion. If the opposite pair trades we invert it (eg.: BTC-XMR)</p><p>The calculation types are:</p><ul class='list-in-description'><li>Close - a Close of the day close price</li><li>MidHighLow - the average between the 24 H high and low</li><li>VolFVolT - the total volume to / the total volume from</li></ul>",
+                    "Parameters": [
+                        {
+                            "name": "tryConversion",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "If set to false, it will try to get only direct trading values"
+                        },
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfo"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "tsyms",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 30,
+                            "transform": "Uppercase",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "KeysInTradePairsOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsym",
+                            "description": "Comma separated cryptocurrency symbols list to convert into"
+                        },
+                        {
+                            "name": "ts",
+                            "type": "timestamp",
+                            "required": false,
+                            "defaultToHitTime": true,
+                            "nowOrLess": true,
+                            "extraValidation": [
+                                "roundDownTs"
+                            ],
+                            "secondsInUnit": 86400,
+                            "cacheLength": 86400,
+                            "unit": "day",
+                            "description": "The unix timestamp of interest"
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "CCCAGG",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketInPairsMarketList"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "calculationType",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "Close",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "PriceHistoricalCalculationType"
+                            ],
+                            "description": "Type of average to calculate (Close - a Close of the day close price, MidHighLow - the average between the 24 H high and low, VolFVolT - the total volume to / the total volume from)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD,EUR&ts=1452680400",
+                        "https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/pricehistorical?fsym=DASH&tsyms=ZEC&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/pricehistorical?fsym=XMR&tsyms=ZEC,EUR&ts=1452680400&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD,EUR&e=Coinbase&ts=1452680400&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "86400 seconds"
+                }
+            },
+            "dataPriceHistoricalDayAvg": {
+                "Name": "Historical Day Average Price",
+                "Simple": "https://min-api.cryptocompare.com/data/dayAvg?fsym=BTC&tsym=USD",
+                "Info": {
+                    "Description": "<p>Get day average price. The values are based on hourly vwap data and the average can be calculated in different ways. It uses BTC conversion if data is not available because the coin is not trading in the specified currency. If tryConversion is set to false it will give you the direct data. If no toTS is given it will automatically do the current day. Also for different timezones use the UTCHourDiff param </p><p>The calculation types are: </p><ul class='list-in-description'><li>HourVWAP - a VWAP of the hourly close price</li><li>MidHighLow - the average between the 24 H high and low.</li><li>VolFVolT - the total volume from / the total volume to (only avilable with tryConversion set to false so only for direct trades but the value should be the most accurate average day price)</li></ul>",
+                    "Parameters": [
+                        {
+                            "name": "tryConversion",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "info": "If set to false, it will try to get values without using any conversion at all",
+                            "description": "If set to false, it will try to get only direct trading values"
+                        },
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfo"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInTradePairsOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsym",
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "CCCAGG",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketInPairMarketList"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "avgType",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "HourVWAP",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "AverageType"
+                            ],
+                            "description": "Type of average to calculate (HourVWAP - a HourVWAP of hourly price, MidHighLow - the average between the 24 H high and low, VolFVolT - the total volume to / the total volume from)"
+                        },
+                        {
+                            "name": "UTCHourDiff",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 0,
+                            "minValue": -12,
+                            "maxValue": 14,
+                            "description": "By deafult it does UTC, if you want a different time zone just pass the hour difference. For PST you would pass -8 for example."
+                        },
+                        {
+                            "name": "toTs",
+                            "type": "timestamp",
+                            "required": false,
+                            "defaultToHitTime": true,
+                            "nowOrLess": true,
+                            "extraValidation": [
+                                "DayAvgTimestampValidation"
+                            ],
+                            "secondsInUnit": 3600,
+                            "cacheLength": 610,
+                            "maxUnits": 2000,
+                            "unit": "hour",
+                            "description": "Returns historical data before that timestamp."
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/dayAvg?fsym=BTC&tsym=USD&UTCHourDiff=-8&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/dayAvg?fsym=ETH&tsym=GBP&toTs=1487116800&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/dayAvg?fsym=ETH&tsym=GBP&toTs=1487116800&tryConversion=false&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/dayAvg?fsym=ETH&tsym=GBP&toTs=1487116800&avgType=MidHighLow&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/dayAvg?fsym=ETH&tsym=GBP&toTs=1487116800&avgType=MidHighLow&tryConversion=false&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/dayAvg?fsym=ETH&tsym=GBP&toTs=1487116800&avgType=VolFVolT&tryConversion=false&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/dayAvg?fsym=BTC&tsym=USD&toTs=1487116800&e=Bitfinex&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "610 seconds"
+                }
+            },
+            "dataExchangeHistoday": {
+                "Name": "Historical Daily Exchange Volume",
+                "Simple": "https://min-api.cryptocompare.com/data/exchange/histoday?tsym=USD&limit=10",
+                "Info": {
+                    "Description": "<p>Get total volume from the daily historical exchange data.The values are based on 00:00 GMT time. We store the data in BTC and we multiply by the BTC-tsym value. If you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}.</p>",
+                    "Parameters": [
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfo"
+                            ],
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "CCCAGG",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketExists"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "aggregate",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 1,
+                            "minValue": 1,
+                            "maxValue": 30,
+                            "description": "Time period to aggregate the data over (for daily it's days, for hourly it's hours and for minute histo it's minutes)"
+                        },
+                        {
+                            "name": "aggregatePredictableTimePeriods",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "True by default, only used when the aggregate param is also in use. If false it will aggregate based on the current time.If the param is false and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 9am, 11am, 1pm.If the param is false and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm.If the param is true (default) and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 8am, 10am, 12pm.If the param is true (default) and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm."
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 30,
+                            "minValue": 1,
+                            "maxValue": 2000,
+                            "description": "The number of data points to return"
+                        },
+                        {
+                            "name": "toTs",
+                            "type": "timestamp",
+                            "required": false,
+                            "defaultToHitTime": true,
+                            "nowOrLess": true,
+                            "extraValidation": [
+                                "toTimestampValidation"
+                            ],
+                            "secondsInUnit": 86400,
+                            "cacheLength": 610,
+                            "maxUnits": 2000,
+                            "unit": "day",
+                            "description": "Returns historical data before that timestamp. If you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/exchange/histoday?e=LocalBitcoins&tsym=USD&limit=100&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/exchange/histoday?e=Coinbase&tsym=BTC&limit=100&aggregate=10&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "610 seconds"
+                }
+            },
+            "dataExchangeHistoHour": {
+                "Name": "Historical Hourly Exchange Volume",
+                "Simple": "https://min-api.cryptocompare.com/data/exchange/histohour?tsym=USD&limit=10",
+                "Info": {
+                    "Description": "p>Get total volume from the hourly historical exchange data.We store the data in BTC and we multiply by the BTC-tsym valueIf you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}.</p>",
+                    "Parameters": [
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfo"
+                            ],
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "CCCAGG",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketExists"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "aggregate",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 1,
+                            "minValue": 1,
+                            "maxValue": 30,
+                            "description": "Time period to aggregate the data over (for daily it's days, for hourly it's hours and for minute histo it's minutes)"
+                        },
+                        {
+                            "name": "aggregatePredictableTimePeriods",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "True by default, only used when the aggregate param is also in use. If false it will aggregate based on the current time.If the param is false and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 9am, 11am, 1pm.If the param is false and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm.If the param is true (default) and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 8am, 10am, 12pm.If the param is true (default) and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm."
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 168,
+                            "minValue": 1,
+                            "maxValue": 2000,
+                            "description": "The number of data points to return"
+                        },
+                        {
+                            "name": "toTs",
+                            "type": "timestamp",
+                            "required": false,
+                            "defaultToHitTime": true,
+                            "nowOrLess": true,
+                            "extraValidation": [
+                                "toTimestampValidation"
+                            ],
+                            "secondsInUnit": 3600,
+                            "cacheLength": 610,
+                            "maxUnits": 2000,
+                            "unit": "hour",
+                            "description": "Returns historical data before that timestamp. If you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/exchange/histohour?e=Coinbase&tsym=USD&limit=24&aggregate=3",
+                        "https://min-api.cryptocompare.com/data/exchange/histohour?e=Poloniex&tsym=USD&limit=24&aggregate=3&extraParams=your_app_name",
+                        "https://min-api.cryptocompare.com/data/exchange/histohour?e=Coinbase&tsym=BTC&limit=24&aggregate=1&toTs=1452680400&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "610 seconds"
+                }
+            },
+            "dailyMarketClose": {
+                "Name": "Daily Market Close",
+                "Simple": "https://min-api.cryptocompare.com/data/daily/market/close",
+                "Info": {
+                    "Description": "<p>Only available for enterprise clients (see <a href=\"https://min-api.cryptocompare.com/pricing\" target=\"_blank\" rel=\"noopener\" rel=\"noreferrer\">pricing page</a> if you want to find out more).</p><p> Daily market close for all coin pairs across all markets as a CSV file. If you pass any date that is today or in the future the API defaults to yesterday. We populate the data at 1:30 am GMT for the previous day.You can test it buy trying <a href=\"https://min-api.cryptocompare.com/data/daily/market/close?date=2019-07-21\">https://min-api.cryptocompare.com/data/daily/market/close?date=2019-07-21</a></p>",
+                    "Parameters": [
+                        {
+                            "name": "date",
+                            "type": "string",
+                            "defaultVal": "",
+                            "required": false,
+                            "description": "Returns csv data at the beginning of the day for this date. You can pass in any date in the format YYYY-MM-DD."
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/daily/market/close?date=2019-07-21"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            }
+        }
+    },
+    "PairMapping": {
+        "ShowOnFrontEnd": true,
+        "Icon": "arrows-h",
+        "Expanded": true,
+        "Name": "Pair Mapping",
+        "SubCatgeories": {
+            "pairMappingMappedSymbolEndpoint": {
+                "Name": "Latest Mapping - From Symbol",
+                "Simple": "https://min-api.cryptocompare.com/data/pair/mapping/fsym?fsym=BTC",
+                "Info": {
+                    "Description": "<p>Returns the current pair mapping by mapped symbol.</p>",
+                    "Parameters": [
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "BTC",
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfo"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/pair/mapping/fsym?fsym=BTC&extraParams=YourSite"
+                    ],
+                    "CacheDuration": "3600 seconds"
+                }
+            },
+            "pairMappingExchangeEndpoint": {
+                "Name": "Latest Mapping - Exchange",
+                "Simple": "https://min-api.cryptocompare.com/data/pair/mapping/exchange?e=Kraken",
+                "Info": {
+                    "Description": "<p>Returns the current pair mapping by exchange. If no exchange is passed in the e parameter, you will get an object with all the exchanges, otherwise you get an array with mapping object for that specific exchange</p>",
+                    "Parameters": [
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "",
+                            "minLen": 0,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketExistsOrEmpty"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/pair/mapping/exchange?extraParams=YourSite",
+                        "https://min-api.cryptocompare.com/data/pair/mapping/exchange?e=Kraken&extraParams=YourSite"
+                    ],
+                    "CacheDuration": "3600 seconds"
+                }
+            },
+            "pairMappingExchangeSymbolEndpoint": {
+                "Name": "Latest Mapping - Exchange From Symbol",
+                "Simple": "https://min-api.cryptocompare.com/data/pair/mapping/exchange/fsym?exchangeFsym=XXBT",
+                "Info": {
+                    "Description": "<p>Returns the current pair mapping by exchange symbol.</p>",
+                    "Parameters": [
+                        {
+                            "name": "exchangeFsym",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "BTC",
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "description": "The symbol as it trades on the exchange"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/pair/mapping/exchange/fsym?exchangeFsym=XBT&extraParams=YourSite"
+                    ],
+                    "CacheDuration": "3600 seconds"
+                }
+            },
+            "plannedPairRemappingEndpoint": {
+                "Name": "Planned Pair Mapping Updates",
+                "Simple": "https://min-api.cryptocompare.com/data/pair/mapping/planned/updates",
+                "Info": {
+                    "Description": "<p>Returns all planned pair re-mapping events.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/pair/mapping/planned/updates?extraParams=YourSite"
+                    ],
+                    "CacheDuration": "86400 seconds"
+                }
+            }
+        }
+    },
+    "Toplists": {
+        "ShowOnFrontEnd": true,
+        "Icon": "list-ol",
+        "Expanded": true,
+        "Name": "Toplists",
+        "SubCatgeories": {
+            "TopTotalVolumeEndpointFull": {
+                "Name": "Toplist by 24H Volume Full Data",
+                "Simple": "https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=USD",
+                "Info": {
+                    "Description": "<p>Get a number of top coins by their total volume across all markets in the last 24 hours. Default value is first page (0) and the top 10 coins.</p>",
+                    "Parameters": [
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 10,
+                            "minValue": 10,
+                            "maxValue": 100,
+                            "extraValidation": [
+                                "StepsOf"
+                            ],
+                            "sizeOfStep": 10,
+                            "description": "The number of coins to return in the toplist, default 10, min 10, max 100 will round to steps of 10 coins"
+                        },
+                        {
+                            "name": "page",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 0,
+                            "minValue": 0,
+                            "extraValidation": [
+                                "UnderTotalCoinsValue"
+                            ],
+                            "description": "The pagination for the request. If you want to paginate by 50 for example, pass in the limit_toplist param the value 50 and increasing page_toplist integer values, 0 would return coins 0-50, 1 returns coins 50-100"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalToPairs"
+                            ],
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "ascending",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/top/totalvolfull?tsym=USD&page=2",
+                        "https://min-api.cryptocompare.com/data/top/totalvolfull?limit=30&page=3&tsym=EUR&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "topTotalTopTierVolumeEndpointFull": {
+                "Name": "Toplist by 24H Top Tier Volume Full Data",
+                "Simple": "https://min-api.cryptocompare.com/data/top/totaltoptiervolfull?limit=10&tsym=USD",
+                "Info": {
+                    "Description": "<p>Get a number of top coins by their total top tier volume based on the top 20 markets in the last 24 hours. Default value is first page (0) and the top 10 coins.</p>",
+                    "Parameters": [
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 10,
+                            "minValue": 10,
+                            "maxValue": 100,
+                            "extraValidation": [
+                                "StepsOf"
+                            ],
+                            "sizeOfStep": 10,
+                            "description": "The number of coins to return in the toplist, default 10, min 10, max 100 will round to steps of 10 coins"
+                        },
+                        {
+                            "name": "page",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 0,
+                            "minValue": 0,
+                            "extraValidation": [
+                                "UnderTotalCoinsValue"
+                            ],
+                            "description": "The pagination for the request. If you want to paginate by 50 for example, pass in the limit_toplist param the value 50 and increasing page_toplist integer values, 0 would return coins 0-50, 1 returns coins 50-100"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalToPairs"
+                            ],
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "ascending",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/top/totaltoptiervolfull?tsym=USD&page=2",
+                        "https://min-api.cryptocompare.com/data/top/totaltoptiervolfull?limit=30&page=3&tsym=EUR&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "TopTotalMktCapEndpointFull": {
+                "Name": "Toplist by Market Cap Full Data",
+                "Simple": "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD",
+                "Info": {
+                    "Description": "<p>Get a number of top coins by their market cap. Default value is first page (0) and the top 10 coins.</p>",
+                    "Parameters": [
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 10,
+                            "minValue": 10,
+                            "maxValue": 100,
+                            "extraValidation": [
+                                "StepsOf"
+                            ],
+                            "sizeOfStep": 10,
+                            "description": "The number of coins to return in the toplist, default 10, min 10, max 100 will round to steps of 10 coins"
+                        },
+                        {
+                            "name": "page",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 0,
+                            "minValue": 0,
+                            "extraValidation": [
+                                "UnderTotalCoinsValue"
+                            ],
+                            "description": "The pagination for the request. If you want to paginate by 50 for example, pass in the limit_toplist param the value 50 and increasing page_toplist integer values, 0 would return coins 0-50, 1 returns coins 50-100"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalToPairs"
+                            ],
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "ascending",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/top/mktcapfull?tsym=USD&page=2",
+                        "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=30&page=3&tsym=EUR&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "topExchangesEndpoint": {
+                "Name": "Top Exchanges Volume Data by Pair",
+                "Simple": "https://min-api.cryptocompare.com/data/top/exchanges?fsym=BTC&tsym=USD",
+                "Info": {
+                    "Description": "<p>Get top exchanges by volume for a currency pair. The number of exchanges you get is the minimum of the limit you set (default 5) and the total number of exchanges available </p>",
+                    "Parameters": [
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfoRoot"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInTradePairsOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsym",
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 5,
+                            "minValue": 1,
+                            "maxValue": 50,
+                            "enforceMax": true,
+                            "description": "The number of data points to return"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/top/exchanges?fsym=ETH&tsym=USD",
+                        "https://min-api.cryptocompare.com/data/top/exchanges?fsym=BTC&tsym=USD&limit=20",
+                        "https://min-api.cryptocompare.com/data/top/exchanges?fsym=REP&tsym=ETH"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "topExchangesFullEndpoint": {
+                "Name": "Top Exchanges Full Data By Pair",
+                "Simple": "https://min-api.cryptocompare.com/data/top/exchanges/full?fsym=BTC&tsym=USD",
+                "Info": {
+                    "Description": "<p>Get top exchanges by volume for a currency pair plus the full CCCAGG data. The number of exchanges you get is the minimum of the limit you set (default 5) and the total number of exchanges available</p>",
+                    "Parameters": [
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfoRoot"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInTradePairsOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsym",
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 5,
+                            "minValue": 1,
+                            "maxValue": 50,
+                            "enforceMax": true,
+                            "description": "The number of data points to return"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/top/exchanges/full?fsym=ETH&tsym=USD",
+                        "https://min-api.cryptocompare.com/data/top/exchanges/full?fsym=BTC&tsym=USD&limit=20",
+                        "https://min-api.cryptocompare.com/data/top/exchanges/full?fsym=REP&tsym=ETH"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "topExchangesVolumes": {
+                "Name": "Toplist by Pair Volume",
+                "Simple": "https://min-api.cryptocompare.com/data/top/volumes?tsym=BTC",
+                "Info": {
+                    "Description": "<p>Get top coins by volume for the to currency. It returns volume24hto and total supply (where available). The number of coins you get is the minimum of the limit you set (default 50) and the total number of coins available</p>",
+                    "Parameters": [
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalToPairs"
+                            ],
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 20,
+                            "minValue": 1,
+                            "maxValue": 1000,
+                            "description": "The number of data points to return"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/top/volumes?tsym=ETH",
+                        "https://min-api.cryptocompare.com/data/top/volumes?tsym=BTC&limit=100",
+                        "https://min-api.cryptocompare.com/data/top/volumes?tsym=USD&limit=20"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "topPairsEndpoint": {
+                "Name": "Toplist of Trading Pairs",
+                "Simple": "https://min-api.cryptocompare.com/data/top/pairs?fsym=BTC",
+                "Info": {
+                    "Description": "<p>Get top pairs by volume for a currency (always uses our aggregated data). The number of pairs you get is the minimum of the limit you set (default 5) and the total number of pairs available</p>",
+                    "Parameters": [
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfoRoot"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 5,
+                            "minValue": 1,
+                            "maxValue": 50,
+                            "description": "The number of data points to return"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/top/pairs?fsym=ETH",
+                        "https://min-api.cryptocompare.com/data/top/pairs?fsym=BTC&limit=20",
+                        "https://min-api.cryptocompare.com/data/top/pairs?fsym=ZEC&limit=20"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            }
+        }
+    },
+    "Social": {
+        "ShowOnFrontEnd": true,
+        "Icon": "comments",
+        "Expanded": true,
+        "Name": "Social Data",
+        "SubCatgeories": {
+            "latestCoinSocialStats": {
+                "Name": "Latest Coin Social Stats Data",
+                "Simple": "https://min-api.cryptocompare.com/data/social/coin/latest",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns latest social stats data for the coin requested</p>",
+                    "Parameters": [
+                        {
+                            "name": "coinId",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 1182,
+                            "extraValidation": [
+                                "CoinIdIsValid"
+                            ],
+                            "description": "The id of the coin you want data for."
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/social/coin/latest",
+                        "https://min-api.cryptocompare.com//data/social/coin/latest?coinId=7605"
+                    ],
+                    "CacheDuration": "600 seconds"
+                }
+            },
+            "historicalDaySocialStats": {
+                "Name": "Historical Day Social Stats Data",
+                "Simple": "https://min-api.cryptocompare.com/data/social/coin/histo/day",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns daily social stats data for the coin requested</p>",
+                    "Parameters": [
+                        {
+                            "name": "coinId",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 1182,
+                            "extraValidation": [
+                                "CoinIdIsValid"
+                            ],
+                            "description": "The id of the coin you want data for."
+                        },
+                        {
+                            "name": "aggregate",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 1,
+                            "minValue": 1,
+                            "maxValue": 30,
+                            "description": "Time period to aggregate the data over (for daily it's days, for hourly it's hours and for minute histo it's minutes)"
+                        },
+                        {
+                            "name": "aggregatePredictableTimePeriods",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "True by default, only used when the aggregate param is also in use. If false it will aggregate based on the current time.If the param is false and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 9am, 11am, 1pm.If the param is false and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm.If the param is true (default) and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 8am, 10am, 12pm.If the param is true (default) and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm."
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 30,
+                            "minValue": 1,
+                            "maxValue": 2000,
+                            "description": "The number of data points to return"
+                        },
+                        {
+                            "name": "toTs",
+                            "type": "timestamp",
+                            "required": false,
+                            "defaultToHitTime": true,
+                            "nowOrLess": true,
+                            "extraValidation": [
+                                "toTimestampValidation"
+                            ],
+                            "secondsInUnit": 86400,
+                            "cacheLength": 600,
+                            "maxUnits": 2000,
+                            "unit": "day",
+                            "description": "Returns historical data before that timestamp. If you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/social/coin/histo/day",
+                        "https://min-api.cryptocompare.com/data/social/coin/histo/day?coinId=7605&aggregate=2&limit=100&toTs=1543622400"
+                    ],
+                    "CacheDuration": "600 seconds"
+                }
+            },
+            "historicalHourSocialStats": {
+                "Name": "Historical Hour Social Stats Data",
+                "Simple": "https://min-api.cryptocompare.com/data/social/coin/histo/hour",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns hourly social stats data for the coin requested</p>",
+                    "Parameters": [
+                        {
+                            "name": "coinId",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 1182,
+                            "extraValidation": [
+                                "CoinIdIsValid"
+                            ],
+                            "description": "The id of the coin you want data for."
+                        },
+                        {
+                            "name": "aggregate",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 1,
+                            "minValue": 1,
+                            "maxValue": 30,
+                            "description": "Time period to aggregate the data over (for daily it's days, for hourly it's hours and for minute histo it's minutes)"
+                        },
+                        {
+                            "name": "aggregatePredictableTimePeriods",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true,
+                            "description": "True by default, only used when the aggregate param is also in use. If false it will aggregate based on the current time.If the param is false and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 9am, 11am, 1pm.If the param is false and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm.If the param is true (default) and the time you make the call is 1pm - 2pm, with aggregate 2, it will create the time slots: ... 8am, 10am, 12pm.If the param is true (default) and the time you make the call is 2pm - 3pm, with aggregate 2, it will create the time slots: ... 10am, 12am, 2pm."
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 30,
+                            "minValue": 1,
+                            "maxValue": 2000,
+                            "description": "The number of data points to return"
+                        },
+                        {
+                            "name": "toTs",
+                            "type": "timestamp",
+                            "required": false,
+                            "defaultToHitTime": true,
+                            "nowOrLess": true,
+                            "extraValidation": [
+                                "toTimestampValidation"
+                            ],
+                            "secondsInUnit": 3600,
+                            "cacheLength": 600,
+                            "maxUnits": 2000,
+                            "unit": "day",
+                            "description": "Returns historical data before that timestamp. If you want to get all the available historical data, you can use limit=2000 and keep going back in time using the toTs param. You can then keep requesting batches using: &limit=2000&toTs={the earliest timestamp received}"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/social/coin/histo/hour",
+                        "https://min-api.cryptocompare.com/data/social/coin/histo/hour?coinId=7605&aggregate=2&limit=100&toTs=1543622400"
+                    ],
+                    "CacheDuration": "600 seconds"
+                }
+            }
+        }
+    },
+    "News": {
+        "ShowOnFrontEnd": true,
+        "Icon": "file",
+        "Expanded": true,
+        "Name": "News",
+        "SubCatgeories": {
+            "latestNewsArticlesEndpoint": {
+                "Name": "Latest News Articles",
+                "Simple": "https://min-api.cryptocompare.com/data/v2/news/?lang=EN",
+                "Info": {
+                    "Description": "<p>Returns news articles from the providers that CryptoCompare has integrated with.</p>",
+                    "Parameters": [
+                        {
+                            "name": "feeds",
+                            "type": "string",
+                            "required": false,
+                            "minLen": 1,
+                            "maxLen": 1000,
+                            "defaultVal": "ALL_NEWS_FEEDS",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "NewsFeedsExist"
+                            ],
+                            "description": "Specific news feeds to retrieve news from"
+                        },
+                        {
+                            "name": "categories",
+                            "type": "string",
+                            "required": false,
+                            "minLen": 3,
+                            "maxLen": 1000,
+                            "defaultVal": "ALL_NEWS_CATEGORIES",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "ArticleCategoryExists"
+                            ],
+                            "description": "Category of news articles to return"
+                        },
+                        {
+                            "name": "excludeCategories",
+                            "type": "string",
+                            "required": false,
+                            "minLen": 3,
+                            "maxLen": 1000,
+                            "defaultVal": "NO_EXCLUDED_NEWS_CATEGORIES",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "ArticleCategoryExists"
+                            ],
+                            "description": "News article categories to exclude from results"
+                        },
+                        {
+                            "name": "lTs",
+                            "type": "timestamp",
+                            "required": false,
+                            "nowOrLess": true,
+                            "defaultVal": 0,
+                            "minValue": 0,
+                            "description": "Returns news before that timestamp"
+                        },
+                        {
+                            "name": "lang",
+                            "type": "string",
+                            "required": false,
+                            "minLen": 1,
+                            "maxLen": 4,
+                            "defaultVal": "EN",
+                            "extraValidation": [
+                                "LangInNewsFeedLangs"
+                            ],
+                            "description": "Preferred language - English (EN) or Portuguese (PT)"
+                        },
+                        {
+                            "name": "sortOrder",
+                            "type": "string",
+                            "required": false,
+                            "minLen": 1,
+                            "maxLen": 8,
+                            "defaultVal": "latest",
+                            "description": "The order to return news articles - latest or popular ",
+                            "extraValidation": [
+                                "SortOrderExists"
+                            ]
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/v2/news/?feeds=cryptocompare,cointelegraph,coindesk&extraParams=YourSite",
+                        "https://min-api.cryptocompare.com/data/v2/news/?feeds=cryptocompare&lTs=1506478327&extraParams=YourSite",
+                        "https://min-api.cryptocompare.com/data/v2/news/?lang=PT&extraParams=YourSite",
+                        "https://min-api.cryptocompare.com/data/v2/news/?categories=BTC,ETH,regulation&extraParams=YourSite",
+                        "https://min-api.cryptocompare.com/data/v2/news/?categories=BTC,ETH&excludeCategories=Sponsored",
+                        "https://min-api.cryptocompare.com/data/v2/news/?categories=Technology,Blockchain&excludeCategories=Regulation,Mining"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "ListNewsFeedsEndpoint": {
+                "Name": "List News Feeds",
+                "Simple": "https://min-api.cryptocompare.com/data/news/feeds",
+                "Info": {
+                    "Description": "<p>Returns all the news feeds (providers) that CryptoCompare has integrated with.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/news/feeds?extraParams=YourSite"
+                    ],
+                    "CacheDuration": "86400 seconds"
+                }
+            },
+            "newsArticleCategoriesEndpoint": {
+                "Name": "News Article Categories",
+                "Simple": "https://min-api.cryptocompare.com/data/news/categories",
+                "Info": {
+                    "Description": "<p>Returns news articles categories, you can use them to filter news.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/news/categories"
+                    ],
+                    "CacheDuration": "86400 seconds"
+                }
+            },
+            "newsFeedAndCategoriesEndpoint": {
+                "Name": "List News Feeds and Categories",
+                "Simple": "https://min-api.cryptocompare.com/data/news/feedsandcategories",
+                "Info": {
+                    "Description": "<p>Returns all the news feeds (providers) that CryptoCompare has integrated with and the full list of categories.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/news/feedsandcategories?extraParams=YourSite"
+                    ],
+                    "CacheDuration": "86400 seconds"
+                }
+            }
+        }
+    },
+    "Orderbook": {
+        "ShowOnFrontEnd": true,
+        "Icon": "table",
+        "Expanded": true,
+        "Name": "Orderbook",
+        "SubCatgeories": {
+            "exchangesWithOrdebookStaticInfoEndpoint": {
+                "Name": "Exchanges With Orderbook Data",
+                "Simple": "https://min-api.cryptocompare.com/data/ob/l2/exchanges",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns all the exchanges we have orderbook level 2 data for.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/ob/l2/exchanges"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "obL1TopEndpoint": {
+                "Name": "Orderbook L1 Top",
+                "Simple": "https://min-api.cryptocompare.com/data/ob/l1/top?fsyms=BTC,ETH&tsyms=USD,EUR&e=coinbase",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key and correct permissions, please get in touch if you want to test it. This is in BETA so the format and access rules might change</b>. Returns latest orderbook Level 1 bid/ask values for the requested exchange and pairs in both raw and display formats.</p>",
+                    "Parameters": [
+                        {
+                            "name": "fsyms",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 1000,
+                            "transform": "Uppercase",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "KeysInGlobalInfo"
+                            ],
+                            "description": "Comma separated cryptocurrency symbols list"
+                        },
+                        {
+                            "name": "tsyms",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 100,
+                            "transform": "Uppercase",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "KeysInAtLeastOneTradePairOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsyms",
+                            "description": "Comma separated cryptocurrency symbols list to convert into"
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketHasOrderbook",
+                                "MarketInPairsMarketList"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/ob/l1/top?fsyms=BTC,ETH&tsyms=USD,EUR&e=coinbase"
+                    ],
+                    "CacheDuration": "30 seconds"
+                }
+            },
+            "obL2SnapshotEndpoint": {
+                "Name": "Orderbook L2 Snapshot",
+                "Simple": "https://min-api.cryptocompare.com/data/ob/l2/snapshot",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key and correct permissions, please get in touch if you want to test it. This is in BETA so the format and access rules might change</b>. Returns latest orderbook Level 2 data snapshot for the requested exchange. The data format is seq, key, array of bids price~quantity, array of asks price~quantity.</p>",
+                    "Parameters": [
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "BTC",
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfo"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "USDT",
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInTradePairsOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsym",
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "Binance",
+                            "minLen": 2,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketHasOrderbook",
+                                "MarketInPairMarketList"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 30,
+                            "minValue": -1,
+                            "maxValue": 2000,
+                            "description": "The number of top bids and asks to return. If you want them all, just pass in -1 for the limit param."
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/ob/l2/snapshot",
+                        "https://min-api.cryptocompare.com/data/ob/l2/snapshot?fsym=ETH&tsym=BTC&e=Binance",
+                        "https://min-api.cryptocompare.com/data/ob/l2/snapshot?fsym=ETH&tsym=BTC&e=Binance&limit=-1"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            }
+        }
+    },
+    "Other": {
+        "ShowOnFrontEnd": true,
+        "Icon": "cog",
+        "Expanded": true,
+        "Name": "General Info",
+        "SubCatgeories": {
+            "rateLimitEndpoint": {
+                "Name": "Rate limit",
+                "Simple": "https://min-api.cryptocompare.com/stats/rate/limit",
+                "Info": {
+                    "Description": "<p>Find out how many calls you have left in the current month, day, hour, minute and second</p>",
+                    "Parameters": [],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/stats/rate/limit"
+                    ],
+                    "CacheDuration": "0 seconds"
+                }
+            },
+            "rateLimitHourEndpoint": {
+                "Name": "Rate limit hour",
+                "Simple": "https://min-api.cryptocompare.com/stats/rate/hour/limit",
+                "Info": {
+                    "Description": "<p>Find out how many calls you have left in the current hour</p>",
+                    "Parameters": [],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/stats/rate/hour/limit"
+                    ],
+                    "CacheDuration": "0 seconds"
+                }
+            },
+            "allExchangesV3Endpoint": {
+                "Name": "All the Exchanges and Trading Pairs",
+                "Simple": "https://min-api.cryptocompare.com/data/v3/all/exchanges",
+                "Info": {
+                    "Description": "<p>Returns all the exchanges that CryptoCompare has integrated with. You can filter by exchange and from symbol</p>",
+                    "Parameters": [
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "",
+                            "minLen": 0,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfoRootOrEmpty"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "e",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "",
+                            "minLen": 0,
+                            "maxLen": 30,
+                            "extraValidation": [
+                                "MarketExistsOrEmpty"
+                            ],
+                            "description": "The exchange to obtain data from"
+                        },
+                        {
+                            "name": "topTier",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "Set to true if you just want to return just the top tier exchanges"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/v3/all/exchanges"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "allIncludedExchangesEndpoint": {
+                "Name": "Display Instrument Constituent Pairs",
+                "Simple": "https://min-api.cryptocompare.com/data/all/includedexchanges",
+                "Info": {
+                    "Description": "<p>Returns all the constituent exchanges in the requested instrument.</p>",
+                    "Parameters": [
+                        {
+                            "name": "instrument",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "CCCAGG",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "extraValidation": [
+                                "InstrumentIsVisible"
+                            ],
+                            "description": "The type of average instrument. It will return the exchanges and pairs included in this average."
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/all/includedexchanges"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "cccaggPairsAndExchangesEndpoint": {
+                "Name": "Display CCCAGG Constituent Pairs",
+                "Simple": "https://min-api.cryptocompare.com/data/cccagg/pairs",
+                "Info": {
+                    "Description": "<p>Returns all the pairs and exchanges currently included in CCCAGG</p>",
+                    "Parameters": [
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "",
+                            "minLen": 0,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfoRootOrEmpty"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/cccagg/pairs",
+                        "https://min-api.cryptocompare.com/data/cccagg/pairs?fsym=BTC"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "cccaggPairsAndExchangesExcludedEndpoint": {
+                "Name": "Display CCCAGG Excluded Pairs",
+                "Simple": "https://min-api.cryptocompare.com/data/cccagg/pairs/excluded",
+                "Info": {
+                    "Description": "<p>Returns all the pairs and exchanges currently not included in CCCAGG</p>",
+                    "Parameters": [
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "",
+                            "minLen": 0,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfoRootOrEmpty"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/cccagg/pairs/excluded",
+                        "https://min-api.cryptocompare.com/data/cccagg/pairs/excluded?fsym=BTC"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "cccaggPairsAndExchangesAbsentEndpoint": {
+                "Name": "Display CCCAGG Absent Pairs",
+                "Simple": "https://min-api.cryptocompare.com/data/cccagg/pairs/absent",
+                "Info": {
+                    "Description": "<p>Returns all the pairs and exchanges that we currently do not have any CCCAGG included pairs so we do not currently compute any CCCAGG price.</p>",
+                    "Parameters": [
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "",
+                            "minLen": 0,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfoRootOrEmpty"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/cccagg/pairs/absent"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "allCoinsWithContentEndpoint": {
+                "Name": "All the Coins",
+                "Simple": "https://min-api.cryptocompare.com/data/all/coinlist",
+                "Info": {
+                    "Description": "<p>Returns all the coins that CryptoCompare has added to the website. This is not the full list of coins we have in the system, it is just the list of coins we have done some research on.</p>",
+                    "Parameters": [
+                        {
+                            "name": "builtOn",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "",
+                            "minLen": 0,
+                            "maxLen": 10,
+                            "extraValidation": [
+                                "BuiltOnIsValid"
+                            ],
+                            "description": "The platform that the token is built on"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/all/coinlist"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "allExchangesStaticInfoEndpoint": {
+                "Name": "All Exchanges General Info",
+                "Simple": "https://min-api.cryptocompare.com/data/exchanges/general",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns general info and 24h volume for all the exchanges we have integrated with.</p>",
+                    "Parameters": [
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "BTC",
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalToPairs"
+                            ],
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/exchanges/general"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "allGamblingStaticInfoEndpoint": {
+                "Name": "All Gambling General Info",
+                "Simple": "https://min-api.cryptocompare.com/data/gambling/general",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns general info about all the exchanges we have integrated with.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/gambling/general"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "allWalletsStaticInfoEndpoint": {
+                "Name": "All Wallets General Info",
+                "Simple": "https://min-api.cryptocompare.com/data/wallets/general",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns general info about all the wallets we have integrated with.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/wallets/general"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "allCardsStaticInfoEndpoint": {
+                "Name": "All Crypto Cards General Info",
+                "Simple": "https://min-api.cryptocompare.com/data/cards/general",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns general info about all the crypto cards we have integrated with.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/cards/general"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "allMiningContractsStaticInfoEndpoint": {
+                "Name": "All Mining Contracts General Info",
+                "Simple": "https://min-api.cryptocompare.com/data/mining/contracts/general",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns general info about all the mining contracts we have integrated with.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/mining/contracts/general"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "allMiningCompaniesStaticInfoEndpoint": {
+                "Name": "All Mining Companies General Info",
+                "Simple": "https://min-api.cryptocompare.com/data/mining/companies/general",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns general info about all the mining companies we have integrated with.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/mining/companies/general"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "allMiningEquipmentStaticInfoEndpoint": {
+                "Name": "All Mining Equipment General Info",
+                "Simple": "https://min-api.cryptocompare.com/data/mining/equipment/general",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns general info about all the mining equipment we have integrated with.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/mining/equipment/general"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "allMiningPoolsStaticInfoEndpoint": {
+                "Name": "All Mining Pools General Info",
+                "Simple": "https://min-api.cryptocompare.com/data/mining/pools/general",
+                "Info": {
+                    "Description": "<p><b>You can only use this endpoint with a valid api_key</b>. Returns general info about all the mining pools we have integrated with.</p>",
+                    "Parameters": [
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/mining/pools/general"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "getRecommendedEntitiesEndpoint": {
+                "Name": "All Recommended Entities",
+                "Simple": "https://min-api.cryptocompare.com/data/recommended/all",
+                "Info": {
+                    "Description": "<p>Returns general info about our recommended entities.</p>",
+                    "Parameters": [
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "BTC",
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalToPairs"
+                            ],
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/recommended/all"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            }
+        }
+    },
+    "Streaming": {
+        "ShowOnFrontEnd": true,
+        "Icon": "sitemap",
+        "Expanded": true,
+        "Name": "Streaming",
+        "SubCatgeories": {
+            "TopTotalVolumeEndpoint": {
+                "Name": "Toplist by 24H Volume Subscriptions",
+                "Simple": "https://min-api.cryptocompare.com/data/top/totalvol?limit=10&tsym=USD",
+                "Info": {
+                    "Description": "<p>Get a number of top coins by their total volume across all markets in the last 24 hours. Default value is first page (0) and the top 10 coins.</p>",
+                    "Parameters": [
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 10,
+                            "minValue": 10,
+                            "maxValue": 100,
+                            "extraValidation": [
+                                "StepsOf"
+                            ],
+                            "sizeOfStep": 10,
+                            "description": "The number of coins to return in the toplist, default 10, min 10, max 100 will round to steps of 10 coins"
+                        },
+                        {
+                            "name": "page",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 0,
+                            "minValue": 0,
+                            "extraValidation": [
+                                "UnderTotalCoinsValue"
+                            ],
+                            "description": "The pagination for the request. If you want to paginate by 50 for example, pass in the limit_toplist param the value 50 and increasing page_toplist integer values, 0 would return coins 0-50, 1 returns coins 50-100"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalToPairs"
+                            ],
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "ascending",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/top/totalvol?tsym=USD&page=2",
+                        "https://min-api.cryptocompare.com/data/top/totalvol?limit=30&page=3&tsym=EUR&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "topTotalTopTierVolumeEndpoint": {
+                "Name": "Toplist by 24H Top Tier Volume Subscriptions",
+                "Simple": "https://min-api.cryptocompare.com/data/top/totaltoptiervol?limit=10&tsym=USD",
+                "Info": {
+                    "Description": "<p>Get a number of top coins by their total top tier volume on the top 20 markets in the last 24 hours. Default value is first page (0) and the top 10 coins.</p>",
+                    "Parameters": [
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 10,
+                            "minValue": 10,
+                            "maxValue": 100,
+                            "extraValidation": [
+                                "StepsOf"
+                            ],
+                            "sizeOfStep": 10,
+                            "description": "The number of coins to return in the toplist, default 10, min 10, max 100 will round to steps of 10 coins"
+                        },
+                        {
+                            "name": "page",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 0,
+                            "minValue": 0,
+                            "extraValidation": [
+                                "UnderTotalCoinsValue"
+                            ],
+                            "description": "The pagination for the request. If you want to paginate by 50 for example, pass in the limit_toplist param the value 50 and increasing page_toplist integer values, 0 would return coins 0-50, 1 returns coins 50-100"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalToPairs"
+                            ],
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "ascending",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/top/totaltoptiervol?tsym=USD&page=2",
+                        "https://min-api.cryptocompare.com/data/top/totaltoptiervol?limit=30&page=3&tsym=EUR&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "TopTotalMktCapEndpoint": {
+                "Name": "Toplist by Market Cap Subscriptions",
+                "Simple": "https://min-api.cryptocompare.com/data/top/mktcap?limit=10&tsym=USD",
+                "Info": {
+                    "Description": "<p>Get a number of top coins by their market cap. Default value is first page (0) and the top 10 coins.</p>",
+                    "Parameters": [
+                        {
+                            "name": "limit",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 10,
+                            "minValue": 10,
+                            "maxValue": 100,
+                            "extraValidation": [
+                                "StepsOf"
+                            ],
+                            "sizeOfStep": 10,
+                            "description": "The number of coins to return in the toplist, default 10, min 10, max 100 will round to steps of 10 coins"
+                        },
+                        {
+                            "name": "page",
+                            "type": "int",
+                            "required": false,
+                            "defaultVal": 0,
+                            "minValue": 0,
+                            "extraValidation": [
+                                "UnderTotalCoinsValue"
+                            ],
+                            "description": "The pagination for the request. If you want to paginate by 50 for example, pass in the limit_toplist param the value 50 and increasing page_toplist integer values, 0 would return coins 0-50, 1 returns coins 50-100"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalToPairs"
+                            ],
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "ascending",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": true
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/top/mktcap?tsym=USD&page=2",
+                        "https://min-api.cryptocompare.com/data/top/mktcap?limit=30&page=3&tsym=EUR&extraParams=your_app_name"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            },
+            "subsByPairEndpoint": {
+                "Name": "Subs By Pair",
+                "Simple": "https://min-api.cryptocompare.com/data/subs?fsym=BTC&tsyms=USD",
+                "Info": {
+                    "Description": "<p>Get all the available streamer subscription channels for the requested pairs.</p>",
+                    "Parameters": [
+                        {
+                            "name": "fsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeyInGlobalInfoRoot"
+                            ],
+                            "description": "The cryptocurrency symbol of interest"
+                        },
+                        {
+                            "name": "tsyms",
+                            "type": "string",
+                            "required": false,
+                            "minLen": 1,
+                            "maxLen": 100,
+                            "defaultVal": "ALL_SYMBOLS",
+                            "transform": "Uppercase",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "KeysInAtLeastOneTradePairOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsym",
+                            "description": "Comma separated cryptocurrency symbols list to convert into"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/subs?fsym=BTC",
+                        "https://min-api.cryptocompare.com/data/subs?fsym=BTC&tsyms=USD,EUR,GBP",
+                        "https://min-api.cryptocompare.com/data/subs?fsym=ETH&tsyms=BTC,EUR"
+                    ],
+                    "CacheDuration": "10 seconds"
+                }
+            },
+            "subsWatchlistEndpoint": {
+                "Name": "Subs Watchlist",
+                "Simple": "https://min-api.cryptocompare.com/data/subsWatchlist?fsyms=BTC,MLN,DASH&tsym=USD",
+                "Info": {
+                    "Description": "<p>Get combinations of subs and pricing info in order to know what needs to be streamed and how to connect to the streamers. The possible responses for Conversion are: not_needed, direct, invert, multiply, divide, invert_multiply, invert_divide <p><ul class='list-in-description'><li>For not_needed - it means you asked for one symbol to the same symbol. You should just use the value you have, no need for streaming or conversion.</li><li>For direct - SubBase + Market + ~ + CurrencyFrom + ~ + CurrencyTo </li><li>For invert - 1 / SubBase + Market + ~ + CurrencyTo + ~ + CurrencyFrom </li><li>For multiply -  SubBase + Market + ~ + CurrencyFrom + ~ + ConversionSymbol * SubBase + Market + ~ + ConversionSymbol + ~ + CurrencyTo </li><li>For divide -  SubBase + Market + ~ + CurrencyFrom + ~ + ConversionSymbol / SubBase + Market + ~ + CurrencyTo + ~ + ConversionSymbol </li><li>For invert_muliply - 1 / (SubBase + Market + ~ + CurrencyFrom + ~ + ConversionSymbol * SubBase + Market + ~ + ConversionSymbol + ~ + CurrencyTo) </li><li>For invert_divide - SubBase + Market + ~ + ConversionSymbol + ~ + CurrencyTo / SubBase + Market + ~ + ConversionSymbol + ~ + CurrencyFrom </li></ul>",
+                    "Parameters": [
+                        {
+                            "name": "fsyms",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 3000,
+                            "transform": "Uppercase",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "KeysInGlobalInfo"
+                            ],
+                            "description": "Comma separated cryptocurrency symbols list"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeysInAtLeastOneTradePairOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsyms",
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/subsWatchlist?fsyms=BTC,ETH,XMR,MLN,DASH&tsym=XMR",
+                        "https://min-api.cryptocompare.com/data/subsWatchlist?fsyms=BTC,ETH,XMR,MLN,DASH,GBP&tsym=USD",
+                        "https://min-api.cryptocompare.com/data/subsWatchlist?fsyms=BTC,ETH,XMR,MLN,DASH,USD&tsym=MLN"
+                    ],
+                    "CacheDuration": "60 seconds"
+                }
+            },
+            "coinsGeneralInfoEndpoint": {
+                "Name": "Coins General Info",
+                "Simple": "https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=BTC,MLN,DASH&tsym=USD",
+                "Info": {
+                    "Description": "<p>Get combinations of subs and pricing info in order to know what needs to be streamed and how to connect to the streamers. The possible responses for Conversion are: not_needed, direct, invert, multiply, divide, invert_multiply, invert_divide <p><ul class='list-in-description'><li>For not_needed - it means you asked for one symbol to the same symbol. You should just use the value you have, no need for streaming or conversion.</li><li>For direct - SubBase + Market + ~ + CurrencyFrom + ~ + CurrencyTo </li><li>For invert - 1 / SubBase + Market + ~ + CurrencyTo + ~ + CurrencyFrom </li><li>For multiply -  SubBase + Market + ~ + CurrencyFrom + ~ + ConversionSymbol * SubBase + Market + ~ + ConversionSymbol + ~ + CurrencyTo </li><li>For divide -  SubBase + Market + ~ + CurrencyFrom + ~ + ConversionSymbol / SubBase + Market + ~ + CurrencyTo + ~ + ConversionSymbol </li><li>For invert_muliply - 1 / (SubBase + Market + ~ + CurrencyFrom + ~ + ConversionSymbol * SubBase + Market + ~ + ConversionSymbol + ~ + CurrencyTo) </li><li>For invert_divide - SubBase + Market + ~ + ConversionSymbol + ~ + CurrencyTo / SubBase + Market + ~ + ConversionSymbol + ~ + CurrencyFrom </li></ul>",
+                    "Parameters": [
+                        {
+                            "name": "fsyms",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 3000,
+                            "transform": "Uppercase",
+                            "eliminateDuplicates": true,
+                            "extraValidation": [
+                                "KeysInGlobalInfo"
+                            ],
+                            "description": "Comma separated cryptocurrency symbols list"
+                        },
+                        {
+                            "name": "tsym",
+                            "type": "string",
+                            "required": true,
+                            "minLen": 1,
+                            "maxLen": 10,
+                            "transform": "Uppercase",
+                            "extraValidation": [
+                                "KeysInAtLeastOneTradePairOrConversionSymbolTradePairs"
+                            ],
+                            "baseKey": "fsyms",
+                            "description": "The currency symbol to convert into"
+                        },
+                        {
+                            "name": "extraParams",
+                            "type": "string",
+                            "required": false,
+                            "defaultVal": "NotAvailable",
+                            "minLen": 1,
+                            "maxLen": 2000,
+                            "description": "The name of your application (we recommend you send it)"
+                        },
+                        {
+                            "name": "sign",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultVal": false,
+                            "description": "If set to true, the server will sign the requests (by default we don't sign them), this is useful for usage in smart contracts"
+                        }
+                    ],
+                    "Examples": [
+                        "https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=BTC,ETH,XMR,MLN,DASH&tsym=XMR",
+                        "https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=BTC,ETH,XMR,MLN,DASH,GBP&tsym=USD",
+                        "https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=BTC,ETH,XMR,MLN,DASH,USD&tsym=MLN"
+                    ],
+                    "CacheDuration": "120 seconds"
+                }
+            }
+        }
+    },
+    "Config": {
+        "ShowOnFrontEnd": false,
+        "AutoGenerate": false,
+        "Expanded": false,
+        "basePath": "https://min-api.cryptocompare.com",
+        "SubCatgeories": {
+            "APICalls": {
+                "title": "Calls Per Second",
+                "statistic": "40,000+ "
+            },
+            "UpdatesPerSecond": {
+                "title": "Trades Per Second",
+                "statistic": "800+ "
+            },
+            "Coins": {
+                "title": "Coins",
+                "statistic": "6,118"
+            },
+            "Pairs": {
+                "title": "Trading Pairs",
+                "statistic": "284,058"
+            },
+            "Exchanges": {
+                "title": "Exchanges",
+                "statistic": "231"
+            },
+            "News": {
+                "title": "News Providers",
+                "statistic": "43"
+            }
+        }
+    },
+    "PricingInfo": {
+        "ShowOnFrontEnd": false,
+        "Expanded": false,
+        "Plans": {
+            "api_abuse_notice": {
+                "id": "api_abuse_notice",
+                "rank": 1,
+                "name": "Contact Us",
+                "description": "There is an issue with your account, please get in touch with us at data@cryptocompare.com",
+                "price": {
+                    "month": 0,
+                    "year": 0
+                },
+                "rate_limit": {
+                    "price_api": {
+                        "month": 25,
+                        "day": 20,
+                        "hour": 15,
+                        "minute": 10,
+                        "second": 5,
+                        "soft_cap_allowance_multiplier": 1.2
+                    },
+                    "auth_api": {
+                        "month": 25,
+                        "day": 20,
+                        "hour": 15,
+                        "minute": 10,
+                        "second": 5,
+                        "soft_cap_allowance_multiplier": 1.2
+                    }
+                }
+            },
+            "sub_commercial_1_v1": {
+                "id": "sub_commercial_1_v1",
+                "rank": 250,
+                "name": "Commercial",
+                "description": "Perfect for getting up to date information on 50-75 coin pairs. You can use the data commercially.",
+                "price": {
+                    "month": 95.99,
+                    "year": 959.88
+                },
+                "rate_limit": {
+                    "price_api": {
+                        "month": 250000,
+                        "day": 250000,
+                        "hour": 250000,
+                        "minute": 15000,
+                        "second": 500,
+                        "soft_cap_allowance_multiplier": 1.2
+                    }
+                }
+            },
+            "sub_commercial_2_v1": {
+                "id": "sub_commercial_2_v1",
+                "rank": 750,
+                "name": "Commercial Pro",
+                "description": "Perfect for getting up to date information on 150-225 coin pairs. You can use the data commercially.",
+                "price": {
+                    "month": 239.99,
+                    "year": 2399.88
+                },
+                "rate_limit": {
+                    "price_api": {
+                        "month": 750000,
+                        "day": 250000,
+                        "hour": 250000,
+                        "minute": 15000,
+                        "second": 500,
+                        "soft_cap_allowance_multiplier": 1.2
+                    }
+                }
+            }
+        },
+        "DefaultLimits": {
+            "month": 100000,
+            "day": 50000,
+            "hour": 25000,
+            "minute": 2500,
+            "second": 50,
+            "soft_cap_allowance_multiplier": 1.2
+        },
+        "SubCatgeories": {}
+    }
+}
